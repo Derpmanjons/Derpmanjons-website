@@ -3,10 +3,11 @@ body {
   color: blue;
   font-family: monospace;
   text-align: center;
+  font-size: 25px;
 }
 header {
   font-size: larger;
 }
-body {
+main {
   font-size: medium;
 }
