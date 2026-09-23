@@ -2,6 +2,7 @@ body {
   background-color: black;
   color: blue;
   font-family: monospace;
+  text-align: center;
 }
 header {
   font-size: larger;
