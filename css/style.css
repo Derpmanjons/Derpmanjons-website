@@ -20,7 +20,7 @@ main {
   background-color: rgba(255, 255, 255, 0.9); /* White background with 90% opacity */
   padding: 20px;
   border-radius: 8px;
-  position: sticky;
+  position: relative;
   color: black;
 
 }
