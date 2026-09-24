@@ -101,8 +101,27 @@ main p:last-child {
   flex: 0 0 1.25rem;
 }
 @media (max-width: 600px) {
+  body {
+    padding: 20px 10px;
+  }
+  .content-card {
+    width: 100%;
+    padding: 18px;
+  }
+  header {
+    font-size: 1.75rem;
+  }
+  main {
+    font-size: 1.1rem;
+    line-height: 1.7;
+  }
+  .social-links a {
+    font-size: 1.1rem;
+  }
   .card-row {
     flex-wrap: wrap;
+    gap: 16px;
+    width: 100%;
   }
   .social-card {
     flex-basis: 100%;
