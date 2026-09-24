@@ -21,8 +21,14 @@ main {
   max-width: 65ch;
   font-size: 1rem;
   line-height: 1.6;
-  text-align: left;
+  text-align: center;
   text-wrap: pretty;
+}
+main p {
+  margin: 0 0 1rem;
+}
+main p:last-child {
+  margin-bottom: 0;
 }
 .content-card {
   background-color: rgba(255, 255, 255, 0.2);
