@@ -16,9 +16,9 @@ header {
   line-height: 1.1;
   text-align: center;
   text-wrap: balance;
-  text-shadow: 0 0 4px rgba(255, 255, 255, 0.95),
-    0 0 10px rgba(210, 150, 255, 0.95),
-    0 0 20px rgba(126, 42, 190, 0.75);
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.75),
+    0 0 7px rgba(210, 150, 255, 0.7),
+    0 0 12px rgba(126, 42, 190, 0.45);
 }
 main {
   max-width: 65ch;
@@ -74,9 +74,9 @@ main p:last-child {
   margin: 0 0 1rem;
   font-size: 1.25rem;
   line-height: 1.2;
-  text-shadow: 0 0 3px rgba(255, 255, 255, 0.9),
-    0 0 8px rgba(210, 150, 255, 0.85),
-    0 0 16px rgba(126, 42, 190, 0.65);
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.7),
+    0 0 6px rgba(210, 150, 255, 0.65),
+    0 0 10px rgba(126, 42, 190, 0.4);
 }
 .social-links {
   display: grid;
@@ -91,9 +91,9 @@ main p:last-child {
   gap: 0.75rem;
   color: inherit;
   font-weight: 700;
-  text-shadow: 0 0 3px rgba(255, 255, 255, 0.9),
-    0 0 8px rgba(210, 150, 255, 0.85),
-    0 0 16px rgba(126, 42, 190, 0.65);
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.7),
+    0 0 6px rgba(210, 150, 255, 0.65),
+    0 0 10px rgba(126, 42, 190, 0.4);
 }
 .social-icon {
   width: 1.25rem;
