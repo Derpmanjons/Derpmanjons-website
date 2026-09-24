@@ -16,6 +16,9 @@ header {
   line-height: 1.1;
   text-align: center;
   text-wrap: balance;
+  text-shadow: 0 0 4px rgba(255, 255, 255, 0.95),
+    0 0 10px rgba(210, 150, 255, 0.95),
+    0 0 20px rgba(126, 42, 190, 0.75);
 }
 main {
   max-width: 65ch;
@@ -23,6 +26,9 @@ main {
   line-height: 1.6;
   text-align: center;
   text-wrap: pretty;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.9),
+    0 0 8px rgba(210, 150, 255, 0.85),
+    0 0 16px rgba(126, 42, 190, 0.65);
 }
 main p {
   margin: 0 0 1rem;
@@ -31,15 +37,16 @@ main p:last-child {
   margin-bottom: 0;
 }
 .content-card {
-  background-color: rgba(113, 255, 255, 0.3);
+  background-color: rgba(35, 39, 49, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.35);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(210, 180, 255, 0.45);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.55),
+    0 0 18px rgba(126, 42, 190, 0.2);
   padding: 20px;
   border-radius: 8px;
   position: relative;
-  color: black;
+  color: #dfc8ff;
   width: fit-content;
   max-width: 100%;
   margin-inline: auto;
@@ -67,6 +74,9 @@ main p:last-child {
   margin: 0 0 1rem;
   font-size: 1.25rem;
   line-height: 1.2;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.9),
+    0 0 8px rgba(210, 150, 255, 0.85),
+    0 0 16px rgba(126, 42, 190, 0.65);
 }
 .social-links {
   display: grid;
@@ -81,6 +91,9 @@ main p:last-child {
   gap: 0.75rem;
   color: inherit;
   font-weight: 700;
+  text-shadow: 0 0 3px rgba(255, 255, 255, 0.9),
+    0 0 8px rgba(210, 150, 255, 0.85),
+    0 0 16px rgba(126, 42, 190, 0.65);
 }
 .social-icon {
   width: 1.25rem;
