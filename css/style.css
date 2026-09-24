@@ -31,7 +31,7 @@ main p:last-child {
   margin-bottom: 0;
 }
 .content-card {
-  background-color: rgba(113, 255, 255, 0.2);
+  background-color: rgba(113, 255, 255, 0.3);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.35);
