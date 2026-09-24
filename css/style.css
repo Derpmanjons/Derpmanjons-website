@@ -31,7 +31,7 @@ main p:last-child {
   margin-bottom: 0;
 }
 .content-card {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: rgba(113, 255, 255, 0.2);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.35);
@@ -47,4 +47,43 @@ main p:last-child {
 }
 .content-card + .content-card {
   margin-top: 24px;
+}
+.main-card {
+  width: min(100%, 65ch);
+}
+.card-row {
+  display: flex;
+  gap: 24px;
+  width: min(100%, 65ch);
+  margin: 24px auto 0;
+}
+.card-row .content-card {
+  margin-inline: 0;
+}
+.social-card {
+  flex: 0 1 calc(50% - 12px);
+}
+.social-card h2 {
+  margin: 0 0 1rem;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+.social-links {
+  display: grid;
+  gap: 0.75rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.social-links a {
+  color: inherit;
+  font-weight: 700;
+}
+@media (max-width: 600px) {
+  .card-row {
+    flex-wrap: wrap;
+  }
+  .social-card {
+    flex-basis: 100%;
+  }
 }
