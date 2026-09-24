@@ -7,6 +7,8 @@ body {
   background-attachment: fixed;
   min-height: 100vh;
   margin: 0;
+  padding: 32px 20px;
+  box-sizing: border-box;
 }
 header {
   font-size: 50px;
@@ -28,4 +30,7 @@ main {
   border-radius: 8px;
   position: relative;
   color: black;
+}
+.content-card + .content-card {
+  margin-top: 24px;
 }
