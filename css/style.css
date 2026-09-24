@@ -19,7 +19,11 @@ main {
   text-align: center;
 }
 .content-card {
-  background-color: rgba(255, 255, 255, 0.9); /* White background with 90% opacity */
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   padding: 20px;
   border-radius: 8px;
   position: relative;
