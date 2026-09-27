@@ -59,9 +59,9 @@
           for (const card of cards) {
             const rect = card.getBoundingClientRect();
             const glow = Math.max(0, 1 - distanceToRect(pointerX, pointerY, rect) / glowRange);
-            card.style.setProperty("--card-glow", glow.toFixed(3));
-            card.style.setProperty("--pointer-x", `${pointerX - rect.left}px`);
-            card.style.setProperty("--pointer-y", `${pointerY - rect.top}px`);
+            card.style.setProperty("--card-border-opacity", (0.45 + glow * 0.5).toFixed(3));
+            card.style.setProperty("--card-glow-blur", `${(glow * 28).toFixed(1)}px`);
+            card.style.setProperty("--card-glow-alpha", (glow * 0.75).toFixed(3));
           }
 
           for (const element of textElements) {
@@ -83,7 +83,11 @@
         });
 
         window.addEventListener("pointerleave", () => {
-          for (const card of cards) card.style.setProperty("--card-glow", "0");
+          for (const card of cards) {
+            card.style.setProperty("--card-border-opacity", "0.45");
+            card.style.setProperty("--card-glow-blur", "0px");
+            card.style.setProperty("--card-glow-alpha", "0");
+          }
           for (const element of textElements) {
             element.style.setProperty("--text-glow-blur", "0px");
             element.style.setProperty("--text-glow-alpha", "0");
