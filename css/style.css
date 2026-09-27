@@ -43,13 +43,6 @@ main p:last-child {
   margin-bottom: 0;
 }
 .content-card {
-  --edge-x: 50%;
-  --edge-y: 50%;
-  --edge-top-alpha: 0;
-  --edge-right-alpha: 0;
-  --edge-bottom-alpha: 0;
-  --edge-left-alpha: 0;
-  --edge-glow-alpha: 0;
   background-color: rgba(35, 39, 49, 0.82);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -64,19 +57,6 @@ main p:last-child {
   max-width: 100%;
   margin-inline: auto;
   box-sizing: border-box;
-}
-.content-card::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  border-radius: 9px;
-  background:
-    radial-gradient(70px 8px at var(--edge-x) 50%, rgba(245, 225, 255, var(--edge-top-alpha)), transparent 75%) top center / 100% 1px no-repeat,
-    radial-gradient(70px 8px at var(--edge-x) 50%, rgba(245, 225, 255, var(--edge-bottom-alpha)), transparent 75%) bottom center / 100% 1px no-repeat,
-    radial-gradient(8px 70px at 50% var(--edge-y), rgba(245, 225, 255, var(--edge-left-alpha)), transparent 75%) left center / 1px 100% no-repeat,
-    radial-gradient(8px 70px at 50% var(--edge-y), rgba(245, 225, 255, var(--edge-right-alpha)), transparent 75%) right center / 1px 100% no-repeat;
-  filter: drop-shadow(0 0 5px rgba(210, 150, 255, var(--edge-glow-alpha)));
-  pointer-events: none;
 }
 .content-card + .content-card {
   margin-top: 24px;
