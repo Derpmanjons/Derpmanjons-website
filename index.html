@@ -1,6 +1,18 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derpmanjons</title>
+    <meta name="description" content="Derpmanjons' personal website">
+
+    <meta property="og:title" content="Derpmanjons">
+    <meta property="og:description" content="Derpmanjons' personal website">
+    <meta property="og:image" content="https://derpmanjons.us/images/Background.webp">
+    <meta property="og:url" content="https://derpmanjons.us/">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:card" content="summary_large_image">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
@@ -27,5 +39,56 @@
     </div>
    </div>
     <footer></footer>
+      <script>
+        const cards = [...document.querySelectorAll(".content-card")];
+        const textElements = [...document.querySelectorAll("header, main p, .social-card h2, .social-links a")];
+        const glowRange = 220;
+        let pointerX = 0;
+        let pointerY = 0;
+        let frameRequested = false;
+
+        function distanceToRect(x, y, rect) {
+          const dx = Math.max(rect.left - x, 0, x - rect.right);
+          const dy = Math.max(rect.top - y, 0, y - rect.bottom);
+          return Math.hypot(dx, dy);
+        }
+
+        function updateGlow() {
+          frameRequested = false;
+
+          for (const card of cards) {
+            const rect = card.getBoundingClientRect();
+            const glow = Math.max(0, 1 - distanceToRect(pointerX, pointerY, rect) / glowRange);
+            card.style.setProperty("--card-glow", glow.toFixed(3));
+            card.style.setProperty("--pointer-x", `${pointerX - rect.left}px`);
+            card.style.setProperty("--pointer-y", `${pointerY - rect.top}px`);
+          }
+
+          for (const element of textElements) {
+            const rect = element.getBoundingClientRect();
+            const glow = Math.max(0, 1 - distanceToRect(pointerX, pointerY, rect) / glowRange);
+            element.style.setProperty("--text-glow-blur", `${(glow * 12).toFixed(1)}px`);
+            element.style.setProperty("--text-glow-alpha", (glow * 0.9).toFixed(3));
+          }
+        }
+
+        window.addEventListener("pointermove", (event) => {
+          if (event.pointerType === "touch") return;
+          pointerX = event.clientX;
+          pointerY = event.clientY;
+          if (!frameRequested) {
+            frameRequested = true;
+            requestAnimationFrame(updateGlow);
+          }
+        });
+
+        window.addEventListener("pointerleave", () => {
+          for (const card of cards) card.style.setProperty("--card-glow", "0");
+          for (const element of textElements) {
+            element.style.setProperty("--text-glow-blur", "0px");
+            element.style.setProperty("--text-glow-alpha", "0");
+          }
+        });
+      </script>
   </body>
 </html>
