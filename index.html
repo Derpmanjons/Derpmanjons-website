@@ -42,15 +42,41 @@
       <script>
         const cards = [...document.querySelectorAll(".content-card")];
         const textElements = [...document.querySelectorAll("header, main p, .social-card h2, .social-links a")];
-        const glowRange = 220;
+        const letters = [];
+        const segmenter = typeof Intl.Segmenter === "function"
+          ? new Intl.Segmenter(undefined, { granularity: "grapheme" })
+          : null;
+        const cardGlowRange = 220;
+        const letterGlowRange = 56;
         let pointerX = 0;
         let pointerY = 0;
         let frameRequested = false;
 
-        function distanceToRect(x, y, rect) {
-          const dx = Math.max(rect.left - x, 0, x - rect.right);
-          const dy = Math.max(rect.top - y, 0, y - rect.bottom);
-          return Math.hypot(dx, dy);
+        for (const element of textElements) {
+          const walker = document.createTreeWalker(element, NodeFilter.SHOW_TEXT);
+          const textNodes = [];
+          while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+          for (const textNode of textNodes) {
+            const segments = segmenter
+              ? [...segmenter.segment(textNode.textContent)].map(({ segment }) => segment)
+              : Array.from(textNode.textContent);
+            const fragment = document.createDocumentFragment();
+
+            for (const segment of segments) {
+              if (/\s/u.test(segment)) {
+                fragment.append(document.createTextNode(segment));
+              } else {
+                const letter = document.createElement("span");
+                letter.className = "glow-letter";
+                letter.textContent = segment;
+                fragment.append(letter);
+                letters.push(letter);
+              }
+            }
+
+            textNode.replaceWith(fragment);
+          }
         }
 
         function updateGlow() {
@@ -58,17 +84,39 @@
 
           for (const card of cards) {
             const rect = card.getBoundingClientRect();
-            const glow = Math.max(0, 1 - distanceToRect(pointerX, pointerY, rect) / glowRange);
-            card.style.setProperty("--card-border-opacity", (0.45 + glow * 0.5).toFixed(3));
-            card.style.setProperty("--card-glow-blur", `${(glow * 28).toFixed(1)}px`);
-            card.style.setProperty("--card-glow-alpha", (glow * 0.75).toFixed(3));
+            const localX = pointerX - rect.left;
+            const localY = pointerY - rect.top;
+            const clamp = (value, max) => Math.min(max, Math.max(0, value));
+            const edgeCandidates = [
+              { side: "top", x: clamp(localX, rect.width), y: 0 },
+              { side: "right", x: rect.width, y: clamp(localY, rect.height) },
+              { side: "bottom", x: clamp(localX, rect.width), y: rect.height },
+              { side: "left", x: 0, y: clamp(localY, rect.height) }
+            ].map((edge) => ({
+              ...edge,
+              distance: Math.hypot(localX - edge.x, localY - edge.y)
+            }));
+            const nearestEdge = edgeCandidates.reduce((nearest, edge) =>
+              edge.distance < nearest.distance ? edge : nearest
+            );
+            const glow = Math.max(0, 1 - nearestEdge.distance / cardGlowRange);
+
+            card.style.setProperty("--edge-x", `${nearestEdge.x + 1}px`);
+            card.style.setProperty("--edge-y", `${nearestEdge.y + 1}px`);
+            for (const side of ["top", "right", "bottom", "left"]) {
+              card.style.setProperty(`--edge-${side}-alpha`, side === nearestEdge.side ? glow.toFixed(3) : "0");
+            }
+            card.style.setProperty("--edge-glow-alpha", (glow * 0.75).toFixed(3));
           }
 
-          for (const element of textElements) {
-            const rect = element.getBoundingClientRect();
-            const glow = Math.max(0, 1 - distanceToRect(pointerX, pointerY, rect) / glowRange);
-            element.style.setProperty("--text-glow-blur", `${(glow * 12).toFixed(1)}px`);
-            element.style.setProperty("--text-glow-alpha", (glow * 0.9).toFixed(3));
+          for (const letter of letters) {
+            const rect = letter.getBoundingClientRect();
+            const dx = Math.max(rect.left - pointerX, 0, pointerX - rect.right);
+            const dy = Math.max(rect.top - pointerY, 0, pointerY - rect.bottom);
+            const proximity = Math.max(0, 1 - Math.hypot(dx, dy) / letterGlowRange);
+            const glow = proximity * proximity;
+            letter.style.setProperty("--letter-glow-blur", `${(glow * 9).toFixed(1)}px`);
+            letter.style.setProperty("--letter-glow-alpha", (glow * 0.95).toFixed(3));
           }
         }
 
@@ -84,13 +132,14 @@
 
         window.addEventListener("pointerleave", () => {
           for (const card of cards) {
-            card.style.setProperty("--card-border-opacity", "0.45");
-            card.style.setProperty("--card-glow-blur", "0px");
-            card.style.setProperty("--card-glow-alpha", "0");
+            for (const side of ["top", "right", "bottom", "left"]) {
+              card.style.setProperty(`--edge-${side}-alpha`, "0");
+            }
+            card.style.setProperty("--edge-glow-alpha", "0");
           }
-          for (const element of textElements) {
-            element.style.setProperty("--text-glow-blur", "0px");
-            element.style.setProperty("--text-glow-alpha", "0");
+          for (const letter of letters) {
+            letter.style.setProperty("--letter-glow-blur", "0px");
+            letter.style.setProperty("--letter-glow-alpha", "0");
           }
         });
       </script>
