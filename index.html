@@ -61,21 +61,21 @@
             const segments = segmenter
               ? [...segmenter.segment(textNode.textContent)].map(({ segment }) => segment)
               : Array.from(textNode.textContent);
-            const fragment = document.createDocumentFragment();
+            const textRun = document.createElement("span");
 
             for (const segment of segments) {
               if (/\s/u.test(segment)) {
-                fragment.append(document.createTextNode(segment));
+                textRun.append(document.createTextNode(segment));
               } else {
                 const letter = document.createElement("span");
                 letter.className = "glow-letter";
                 letter.textContent = segment;
-                fragment.append(letter);
+                textRun.append(letter);
                 letters.push(letter);
               }
             }
 
-            textNode.replaceWith(fragment);
+            textNode.replaceWith(textRun);
           }
         }
 
@@ -100,13 +100,15 @@
               edge.distance < nearest.distance ? edge : nearest
             );
             const glow = Math.max(0, 1 - nearestEdge.distance / cardGlowRange);
+            const sideFactor = nearestEdge.side === "left" || nearestEdge.side === "right" ? 0.8 : 1;
 
             card.style.setProperty("--edge-x", `${nearestEdge.x + 1}px`);
             card.style.setProperty("--edge-y", `${nearestEdge.y + 1}px`);
             for (const side of ["top", "right", "bottom", "left"]) {
-              card.style.setProperty(`--edge-${side}-alpha`, side === nearestEdge.side ? glow.toFixed(3) : "0");
+              const sideGlow = side === nearestEdge.side ? glow * sideFactor : 0;
+              card.style.setProperty(`--edge-${side}-alpha`, sideGlow.toFixed(3));
             }
-            card.style.setProperty("--edge-glow-alpha", (glow * 0.75).toFixed(3));
+            card.style.setProperty("--edge-glow-alpha", (glow * sideFactor * 0.75).toFixed(3));
           }
 
           for (const letter of letters) {
